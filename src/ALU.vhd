@@ -49,19 +49,19 @@ begin
     begin 
         case i_op is
             when "000" => --addiiton
-                w_res <= signed(i_A) + signed(i_B);
+                w_res <= resize(signed(i_A),9) + resize(signed(i_B),9);
             when "001" => --subtraction
-                 w_res <= signed(i_A) - signed(i_B);
+                 w_res <= resize(signed(i_A),9) + resize(signed(i_B),9);
             when "010" => --bitwise AND
-                 w_res <= signed(i_A and i_B);
+                 w_res <= resize(signed(i_A and i_B),9);
             when "011" => --bitwise OR
-                 w_res <= signed(i_A or i_B);
+                 w_res <= resize(signed(i_A or i_B),9);
             when others => --default
                  w_res <= (others => '0');
         end case;
     end process;
     
-    o_result <= std_logic_vector(w_res);
+    o_result <= std_logic_vector(w_res(7 downto 0));
     
     --flag logic:
     
