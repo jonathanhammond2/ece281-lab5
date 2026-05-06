@@ -59,7 +59,7 @@ begin
             when "000" => --addiiton
                 v_res := v_A + v_B;
             when "001" => --subtraction
-                 v_res := v_A + unsigned(not ('0' & i_B)) + 1;
+                 v_res := v_A + unsigned('0' & (not i_B)) + 1;
             when "010" => --bitwise AND
                  v_res := '0' & (unsigned(i_A) and unsigned(i_B));
             when "011" => --bitwise OR
