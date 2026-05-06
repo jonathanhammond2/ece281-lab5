@@ -44,20 +44,22 @@ architecture Behavioral of ALU is
 --signal for calculations
 signal w_res : signed(8 downto 0);
 
+
 begin
     process(i_A, i_B, i_op)
+    variable v_res : signed(8 downto 0);
     begin 
         case i_op is
             when "000" => --addiiton
-                w_res <= resize(signed(i_A),9) + resize(signed(i_B),9);
+                v_res := signed(i_A) + signed(i_B);
             when "001" => --subtraction
-                 w_res <= resize(signed(i_A),9) + resize(signed(i_B),9);
+                 v_res := signed(i_A) + signed(i_B);
             when "010" => --bitwise AND
-                 w_res <= resize(signed(i_A and i_B),9);
+                 v_res := resize(signed(i_A and i_B),9);
             when "011" => --bitwise OR
-                 w_res <= resize(signed(i_A or i_B),9);
+                 v_res := resize(signed(i_A or i_B),9);
             when others => --default
-                 w_res <= (others => '0');
+                w_res <= v_res;
         end case;
     end process;
     
@@ -65,13 +67,13 @@ begin
     
     --flag logic:
     
-    o_flags(3) <= std_logic(w_res(7)); --negative flag is MSB of result
+    o_flags(3) <= std_logic(w_res(7)); --negative flag is MSB of result N
     
-    o_flags(2) <= '1' when (w_res = 0) else '0';
+    o_flags(2) <= '1' when (w_res = 0) else '0'; --Z
     
-    o_flags(1) <= '1' when unsigned(i_A) + unsigned(i_B) > 255 else '0';
+    o_flags(1) <= '1' when unsigned(i_A) + unsigned(i_B) > 255 else '0'; --C
     
-    o_flags(0) <= (i_A(7) xnor i_B(7)) and (i_A(7) xor w_res(7));
+    o_flags(0) <= (i_A(7) xnor i_B(7)) and (i_A(7) xor w_res(7)); --V
 
 
     
