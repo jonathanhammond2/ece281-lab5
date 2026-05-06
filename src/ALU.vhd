@@ -55,9 +55,9 @@ begin
             when "001" => --subtraction
                  v_res := signed(i_A) + signed(i_B);
             when "010" => --bitwise AND
-                 v_res := resize(signed(i_A and i_B),9);
+                 v_res := signed(i_A and i_B);
             when "011" => --bitwise OR
-                 v_res := resize(signed(i_A or i_B),9);
+                 v_res := signed(i_A or i_B);
             when others => --default
                 w_res <= v_res;
         end case;
