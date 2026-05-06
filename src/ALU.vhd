@@ -53,14 +53,15 @@ begin
             when "000" => --addiiton
                 v_res := signed(i_A) + signed(i_B);
             when "001" => --subtraction
-                 v_res := signed(i_A) + signed(i_B);
+                 v_res := signed(i_A) - signed(i_B);
             when "010" => --bitwise AND
                  v_res := signed(i_A and i_B);
             when "011" => --bitwise OR
                  v_res := signed(i_A or i_B);
             when others => --default
-                w_res <= v_res;
+                v_res := (others => '0');
         end case;
+        w_res <= v_res;
     end process;
     
     o_result <= std_logic_vector(w_res(7 downto 0));
