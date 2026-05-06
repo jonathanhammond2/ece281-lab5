@@ -42,12 +42,12 @@ end ALU;
 architecture Behavioral of ALU is
 
 --signal for calculations
-signal w_res : signed(8 downto 0);
+signal w_res : signed(7 downto 0);
 
 
 begin
     process(i_A, i_B, i_op)
-    variable v_res : signed(8 downto 0);
+    variable v_res : signed(7 downto 0);
     begin 
         case i_op is
             when "000" => --addiiton
