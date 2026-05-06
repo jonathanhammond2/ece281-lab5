@@ -69,7 +69,7 @@ begin
     
     o_flags(2) <= '1' when (w_res = 0) else '0';
     
-    o_flags(1) <= w_res(8);
+    o_flags(1) <= '1' when unsigned(i_A) + unsigned(i_B) > 255 else '0';
     
     o_flags(0) <= (i_A(7) xnor i_B(7)) and (i_A(7) xor w_res(7));
 
