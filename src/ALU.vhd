@@ -42,7 +42,7 @@ end ALU;
 architecture Behavioral of ALU is
 
 --signal for calculations
-signal w_res : signed(7 downto 0);
+signal w_res : signed(8 downto 0);
 
 begin
     process(i_A, i_B, i_op)
@@ -69,7 +69,11 @@ begin
     
     o_flags(2) <= '1' when (w_res = 0) else '0';
     
-    o_flags(1 downto 0) <= "00";
+    o_flags(1) <= w_res(8);
+    
+    o_flags(0) <= (i_A(7) xnor i_B(7)) and (i_A(7) xor w_res(7));
 
+
+    
 
 end Behavioral;
